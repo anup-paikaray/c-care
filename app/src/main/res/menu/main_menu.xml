@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Home"
+        android:icon="@drawable/ic_home_white"
+        android:id="@+id/action_home"
+        app:showAsAction="always"/>
+
+    <item android:title="Frequently Visited"
+        android:id="@+id/action_frequently"
+        app:showAsAction="ifRoom"/>
+
+    <item android:title="Hotspot"
+        android:icon="@drawable/ic_hotspot_white"
+        android:id="@+id/action_hotspot"
+        app:showAsAction="always"/>
+
+    <item android:title="Log"
+        android:icon="@drawable/ic_poll_white"
+        android:id="@+id/action_log"
+        app:showAsAction="ifRoom"/>
+
+    <item android:title="Reset"
+        android:id="@+id/action_reset"
+        app:showAsAction="never"/>
+
+<!--    <item android:title="Call"-->
+<!--        android:icon="@drawable/ic_call_white"-->
+<!--        android:id="@+id/action_call"-->
+<!--        app:showAsAction="ifRoom"/>-->
+
+<!--    <item android:title="Settings"-->
+<!--        android:icon="@drawable/ic_settings_white"-->
+<!--        android:id="@+id/action_settings"-->
+<!--        app:showAsAction="never"/>-->
+
+<!--    <item android:title="Health"-->
+<!--        android:icon="@drawable/ic_local_hospital_white"-->
+<!--        android:id="@+id/action_health"-->
+<!--        app:showAsAction="always"/>-->
+
+</menu>
