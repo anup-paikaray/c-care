@@ -312,7 +312,7 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
             cardView.setEnabled(true);
             seekBar.setProgress(0);
             latLong = latLng;
-            textView.setText(latLng.latitude + " " + latLng.longitude);
+            textView.setText(String.format("Lat: %.2f", latLng.latitude) + ", " + String.format("Lng: %.2f", latLng.longitude));
         }
     }
 

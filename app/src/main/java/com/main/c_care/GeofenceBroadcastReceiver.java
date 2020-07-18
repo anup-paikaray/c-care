@@ -19,7 +19,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "GeofenceBroadcast";
     DatabaseHelper myDb;
 
-    private void countExits(int id) {
+    private void countExits(Context context, int id) {
         int count = 0;
         Cursor res = myDb.getAllData();
         if (res.getCount() == 0) {
@@ -33,7 +33,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         }
         boolean isCounted = myDb.updateCount(id, count + 1);
         if (isCounted)
-            Toast.makeText(null, "DATA UPDATED", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "DATA UPDATED", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                 notificationHelper.sendHighPriorityNotification("YOU MIGHT BE IN DANGER", "Fall back quickly", MapsActivity.class);
 
             if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-                countExits(geofenceId / 10);
+                countExits(context,geofenceId / 10);
                 notificationHelper.sendHighPriorityNotification("YOU ARE SAFE NOW", "Thanks for getting out", MapsActivity.class);
             }
         }
@@ -71,7 +71,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                 notificationHelper.sendHighPriorityNotification("PLEASE WASH HANDS FOR 20 SECS", "Think about your family once", MapsActivity.class);
 
             if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-                countExits(geofenceId / 10);
+                countExits(context,geofenceId / 10);
                 notificationHelper.sendHighPriorityNotification("PLEASE WEAR MASK", "Keep yourself and everyone else safe", MapsActivity.class);
             }
         }
@@ -80,7 +80,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
             if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER)
                 notificationHelper.sendHighPriorityNotification("WORK PLACE ENTERED", "Sanitize your hand", MapsActivity.class);
             if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-                countExits(geofenceId / 10);
+                countExits(context,geofenceId / 10);
                 notificationHelper.sendHighPriorityNotification("WORK PLACE EXIT", "Please wear mask", MapsActivity.class);
             }
         }

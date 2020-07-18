@@ -9,6 +9,7 @@
 
     <item android:title="Frequently Visited"
         android:id="@+id/action_frequently"
+        android:icon="@drawable/ic_work_24dp"
         app:showAsAction="ifRoom"/>
 
     <item android:title="Hotspot"
