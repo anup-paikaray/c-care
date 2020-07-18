@@ -38,6 +38,7 @@ public class LoginPage extends AppCompatActivity {
         if (username.equals("Admin") && password.equals("1234")) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
         else {
             Toast.makeText(this, "Incorrect Username or Password", Toast.LENGTH_SHORT).show();

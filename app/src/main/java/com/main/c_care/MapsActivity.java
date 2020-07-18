@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -92,6 +93,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == LOCATION_REQUEST_CODE) {
@@ -108,7 +110,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     /////////////////////////////////////////////DATABASE///////////////////////////////////////////
     private void insertLocation(LatLng latLng, int tag) {
-        boolean isInserted = myDb.insertData(latLng, String.valueOf(tag));
+        boolean isInserted = myDb.insertData(tag, latLng, 0);
         if (isInserted)
             Toast.makeText(MapsActivity.this, "DATA INSERTED", Toast.LENGTH_SHORT).show();
         else
@@ -116,7 +118,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void updateLocation(LatLng latLng, int tag) {
-        boolean isUpdated = myDb.updateData(String.valueOf(tag), latLng);
+        boolean isUpdated = myDb.updateData(tag, latLng, 0);
         if (!isUpdated)
             insertLocation(latLng, tag);
         else
@@ -203,6 +205,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void addGeofence(String id, LatLng latLng, float radius, PendingIntent pendingIntent) {
         Geofence geofence = geofenceHelper.getGeofence(id, latLng, radius, Geofence.GEOFENCE_TRANSITION_ENTER
                 | Geofence.GEOFENCE_TRANSITION_DWELL | Geofence.GEOFENCE_TRANSITION_EXIT);

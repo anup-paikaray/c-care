@@ -1,8 +1,10 @@
 package com.main.c_care;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -21,6 +24,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.Geofence;
@@ -33,6 +39,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,12 +49,20 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
     SupportMapFragment mapFragment;
     MapView mapView;
     View view;
+    SeekBar seekBar;
+    Button btn_continue;
+    Button btn_cancel;
+    TextView textView;
+    CardView cardView;
+    Circle circle;
+
+    LatLng latLong;
 
     private static final String TAG = "MapsFragment";
     private GoogleMap mMap;
     private int tag = 0;
 
-    private float GEOFENCE_RADIUS = 100;
+    private int geofence_radius = 100;
     private int LOCATION_REQUEST_CODE = 10001;
 
     private GeofencingClient geofencingClient;
@@ -139,7 +154,68 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
 
         enableUserLocation();
         mMap.setOnMapLongClickListener(this);
+
         updateMap();
+
+        seekBar = view.findViewById(R.id.seekBar);
+        btn_continue = view.findViewById(R.id.btn_continue);
+        btn_cancel = view.findViewById(R.id.btn_cancel);
+        cardView = view.findViewById(R.id.cardView);
+        textView = view.findViewById(R.id.latlong);
+
+        cardView.setEnabled(false);
+        cardView.setVisibility(View.INVISIBLE);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                geofence_radius = i;
+
+                int color[][] = {{0, 255, 0}, {255, 0, 0}, {0, 0, 255}};
+
+                if(circle != null){
+                    circle.remove();
+                }
+                circle = addCircle(latLong, geofence_radius, color[tag]);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardView.setEnabled(false);
+                cardView.setVisibility(View.INVISIBLE);
+
+                if (tag == 0) {
+                    updateLocation(tag, latLong, geofence_radius);
+                    updateMap();
+                }
+                else if (tag > 0) {
+                    insertLocation(tag, latLong, geofence_radius);
+                    updateMap();
+                }
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tag = -1;
+                cardView.setEnabled(false);
+                cardView.setVisibility(View.INVISIBLE);
+                updateMap();
+            }
+        });
     }
 
     //////////////////////////////////////////////PERMISSIONS///////////////////////////////////////
@@ -156,6 +232,7 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
         }
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == LOCATION_REQUEST_CODE) {
@@ -172,18 +249,18 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
 
 
     /////////////////////////////////////////////DATABASE///////////////////////////////////////////
-    private void insertLocation(LatLng latLng, int tag) {
-        boolean isInserted = myDb.insertData(latLng, String.valueOf(tag));
+    private void insertLocation(int tag, LatLng latLng, int radius) {
+        boolean isInserted = myDb.insertData(tag, latLng, radius);
         if (isInserted)
             Toast.makeText(getContext(), "DATA INSERTED", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(getContext(), "DATA NOT INSERTED", Toast.LENGTH_SHORT).show();
     }
 
-    private void updateLocation(LatLng latLng, int tag) {
-        boolean isUpdated = myDb.updateData(String.valueOf(tag), latLng);
+    private void updateLocation(int tag, LatLng latLng, int radius) {
+        boolean isUpdated = myDb.updateData(tag, latLng, radius);
         if (!isUpdated)
-            insertLocation(latLng, tag);
+            insertLocation(tag, latLng, radius);
         else
             Toast.makeText(getContext(), "DATA UPDATED", Toast.LENGTH_SHORT).show();
     }
@@ -201,7 +278,9 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
                 buffer.append("TIMESTAMP: " + res.getString(1)+"\n");
                 buffer.append("LAT: " + res.getString(2)+"\n");
                 buffer.append("LNG: " + res.getString(3)+"\n");
-                buffer.append("TAG: " + res.getString(4)+"\n\n");
+                buffer.append("RAD: " + res.getString(4)+"\n");
+                buffer.append("TAG: " + res.getString(5)+"\n");
+                buffer.append("COUNT: " + res.getString(6)+"\n\n");
             }
             showMessage("Data", buffer.toString());
         }
@@ -228,13 +307,12 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
     //////////////////////////////////////////GEOFENCING////////////////////////////////////////////
     @Override
     public void onMapLongClick(LatLng latLng) {
-        if (tag == 0) {
-            updateLocation(latLng, tag);
-            updateMap();
-        }
-        else if (tag > 0) {
-            insertLocation(latLng, tag);
-            updateMap();
+        if (tag != -1) {
+            cardView.setVisibility(View.VISIBLE);
+            cardView.setEnabled(true);
+            seekBar.setProgress(0);
+            latLong = latLng;
+            textView.setText(latLng.latitude + " " + latLng.longitude);
         }
     }
 
@@ -249,19 +327,21 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
             removeAllGeofence(pendingIntent);
 
             while (res.moveToNext()) {
-                LatLng latLng = new LatLng(res.getFloat(2), res.getFloat(3));
-                tag = res.getInt(4);
                 int id = res.getInt(0);
+                LatLng latLng = new LatLng(res.getFloat(2), res.getFloat(3));
+                tag = res.getInt(5);
+                int radius = res.getInt(4);
 
                 int color[][] = {{0, 255, 0}, {255, 0, 0}, {0, 0, 255}};
 
-                addGeofence(String.valueOf(tag + id * 10), latLng, GEOFENCE_RADIUS, pendingIntent);
-                addCircle(latLng, GEOFENCE_RADIUS, color[tag]);
+                addGeofence(String.valueOf(tag + id * 10), latLng, radius, pendingIntent);
+                addCircle(latLng, radius, color[tag]);
             }
             tag = -1;
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void addGeofence(String id, LatLng latLng, float radius, PendingIntent pendingIntent) {
         Geofence geofence = geofenceHelper.getGeofence(id, latLng, radius, Geofence.GEOFENCE_TRANSITION_ENTER
                 | Geofence.GEOFENCE_TRANSITION_DWELL | Geofence.GEOFENCE_TRANSITION_EXIT);
@@ -300,13 +380,13 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
                 });
     }
 
-    private void addCircle(LatLng latLng, float radius, int[] color) {
+    private Circle addCircle(LatLng latLng, float radius, int[] color) {
         CircleOptions circleOptions = new CircleOptions();
         circleOptions.center(latLng);
         circleOptions.radius(radius);
         circleOptions.strokeColor(Color.argb(255, color[0], color[1], color[2]));
         circleOptions.fillColor(Color.argb(64, color[0], color[1], color[2]));
         circleOptions.strokeWidth(4);
-        mMap.addCircle(circleOptions);
+        return mMap.addCircle(circleOptions);
     }
 }
