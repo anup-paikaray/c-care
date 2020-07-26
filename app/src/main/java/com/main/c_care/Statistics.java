@@ -42,10 +42,11 @@ public class Statistics extends Fragment implements recyclerAdapter.OnClickRecyc
             return;
         }
 
-        String[][] data = new String[res.getCount()][2];
+        String[][] data = new String[res.getCount()][3];
         for (int i = 0; res.moveToNext(); i++) {
             data[i][0] = res.getString(0);
-            data[i][1] = res.getString(6);
+            data[i][1] = res.getString(1);
+            data[i][2] = res.getString(6);
         }
 
         RecyclerView statsList = view.findViewById(R.id.stats_list);
