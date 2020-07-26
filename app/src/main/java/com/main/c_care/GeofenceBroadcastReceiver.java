@@ -1,6 +1,5 @@
 package com.main.c_care;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +7,8 @@ import android.database.Cursor;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-import com.google.android.gms.maps.model.LatLng;
 
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
@@ -21,7 +17,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     private void countExits(Context context, int id) {
         int count = 0;
-        Cursor res = myDb.getAllData();
+        Cursor res = myDb.getLocationData();
         if (res.getCount() == 0) {
             return;
         }

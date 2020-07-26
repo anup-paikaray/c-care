@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -266,7 +265,7 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
     }
 
     private void viewAllData() {
-        Cursor res = myDb.getAllData();
+        Cursor res = myDb.getLocationData();
         if (res.getCount() == 0) {
             showMessage("Error", "Nothing Found");
             return;
@@ -318,7 +317,7 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
 
     private void updateMap() {
         mMap.clear();
-        Cursor res = myDb.getAllData();
+        Cursor res = myDb.getLocationData();
         if (res.getCount() == 0) {
             return;
         }

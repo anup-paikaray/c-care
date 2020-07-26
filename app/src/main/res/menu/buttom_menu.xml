@@ -8,12 +8,8 @@
         android:icon="@drawable/ic_poll_white"
         android:id="@+id/action_statistics"/>
 
-    <item android:title="News"
-        android:icon="@drawable/ic_format_align_left_black_24dp"
-        android:id="@+id/action_guidelines"/>
-
     <item android:title="User"
         android:visible="false"
         android:icon="@drawable/ic_person_white_24dp"
-        android:id="@+id/action_login"/>
+        android:id="@+id/action_user"/>
 </menu>

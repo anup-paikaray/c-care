@@ -15,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SignupPage"
+            android:label="C-CARE">
+        </activity>
+
+        <activity
             android:name=".OnBoard"
             android:label="@string/title_activity_maps">
             <intent-filter>
@@ -25,8 +30,7 @@
         </activity>
         <activity
             android:name=".LoginPage"
-            android:label="C-CARE">
-        </activity>
+            android:label="C-CARE" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

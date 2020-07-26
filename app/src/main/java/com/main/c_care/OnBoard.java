@@ -6,7 +6,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.transition.Slide;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,7 +16,6 @@ public class OnBoard extends AppCompatActivity {
     private ViewPager viewPager;
     private LinearLayout linearLayout;
     private TextView[] dots;
-    private SliderAdapter sliderAdapter;
     private Button prevButton;
     private Button nextButton;
 
@@ -32,7 +30,7 @@ public class OnBoard extends AppCompatActivity {
         linearLayout = findViewById(R.id.dotsLayout);
         nextButton = findViewById(R.id.nextBtn);
         prevButton = findViewById(R.id.prevBtn);
-        sliderAdapter = new SliderAdapter(this);
+        SliderAdapter sliderAdapter = new SliderAdapter(this);
         viewPager.setAdapter(sliderAdapter);
         addDotsIndicator(0);
         viewPager.addOnPageChangeListener(viewListener);

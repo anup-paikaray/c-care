@@ -63,10 +63,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    Login login = new Login();
+    User user = new User();
     Map map = new Map();
     Statistics statistics = new Statistics();
-    Guidelines guidelines = new Guidelines();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -77,16 +76,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, statistics).commit();
                 return true;
 
-            case R.id.action_login:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, login).commit();
+            case R.id.action_user:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, user).commit();
                 return true;
 
             case R.id.action_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, map).commit();
-                return true;
-
-            case R.id.action_guidelines:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, guidelines).commit();
                 return true;
         }
         return false;

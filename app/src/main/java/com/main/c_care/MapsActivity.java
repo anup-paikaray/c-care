@@ -126,7 +126,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void viewAllData() {
-        Cursor res = myDb.getAllData();
+        Cursor res = myDb.getLocationData();
         if (res.getCount() == 0) {
             showMessage("Error", "Nothing Found");
             return;
@@ -183,7 +183,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void updateMap() {
         mMap.clear();
-        Cursor res = myDb.getAllData();
+        Cursor res = myDb.getLocationData();
         if (res.getCount() == 0) {
             return;
         }
