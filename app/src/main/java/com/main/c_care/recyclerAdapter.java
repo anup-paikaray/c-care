@@ -1,9 +1,6 @@
 package com.main.c_care;
 
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.os.health.TimerStat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +28,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.viewHo
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        int id = Integer.valueOf(data[position][0]);
-        int tag = id % 10 - 1;
+        int tag = Integer.valueOf(data[position][0]);
         String[] TAG = {"Home", "Hotspot", "Workplace"};
 
         holder.txtTitle.setText(TAG[tag]);

@@ -1,5 +1,6 @@
 package com.main.c_care;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -44,10 +45,13 @@ public class Statistics extends Fragment implements recyclerAdapter.OnClickRecyc
 
         String[][] data = new String[res.getCount()][3];
         for (int i = 0; res.moveToNext(); i++) {
-            data[i][0] = res.getString(0);
-            data[i][1] = res.getString(1);
-            data[i][2] = res.getString(6);
+            data[i][0] = res.getString(5);  //tag
+            data[i][1] = res.getString(1);  //time-stamp
+            data[i][2] = res.getString(6);  //count
+            Log.d(TAG, "viewAllData: " + data[i][0] + "\t" + data[i][1] + "\t" + data[i][2]);
         }
+
+        Log.d(TAG, "viewAllData: " + data);
 
         RecyclerView statsList = view.findViewById(R.id.stats_list);
         statsList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -57,5 +61,19 @@ public class Statistics extends Fragment implements recyclerAdapter.OnClickRecyc
     @Override
     public void onRecyclerClick(int position) {
         Log.d(TAG, "onRecyclerClick: " + position);
+        Cursor res = myDb.getLocationData();
+        if (res.getCount() == 0) {
+            return;
+        }
+        for (int i = 0; res.moveToNext(); i++) {
+            if (i == position) {
+                Map map = new Map();
+                Bundle bundle = new Bundle();
+                bundle.putString("lat", res.getString(2));
+                bundle.putString("lng", res.getString(3));
+                map.setArguments(bundle);
+                getParentFragmentManager().beginTransaction().replace(R.id.container, map).commit();
+            }
+        }
     }
 }

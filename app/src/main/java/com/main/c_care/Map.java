@@ -132,6 +132,8 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
             mapView.onResume();
             mapView.getMapAsync(this);
         }
+
+
 //        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 //        if (mapFragment == null) {
 //            FragmentManager fragmentManager = getFragmentManager();
@@ -148,8 +150,17 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
         mMap = googleMap;
         MapsInitializer.initialize(getContext());
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        LatLng bbsr = new LatLng(20.264, 85.8259);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bbsr, 16));
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            Float lat = Float.valueOf(bundle.getString("lat"));
+            Float lng = Float.valueOf(bundle.getString("lng"));
+            LatLng position = new LatLng(lat, lng);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
+        } else {
+            LatLng position = new LatLng(20.264, 85.8259);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
+        }
 
         enableUserLocation();
         mMap.setOnMapLongClickListener(this);
