@@ -51,6 +51,8 @@ public class Statistics extends Fragment implements recyclerAdapter.OnClickRecyc
             data[i][0] = res.getString(5);  //tag
             data[i][1] = res.getString(1);  //time-stamp
             data[i][2] = res.getString(6);  //count
+            if (data[i][2] == null)
+                data[i][2] = String.valueOf(0);
             Log.d(TAG, "viewAllData: " + data[i][0] + "\t" + data[i][1] + "\t" + data[i][2]);
         }
 
