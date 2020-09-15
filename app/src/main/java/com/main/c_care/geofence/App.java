@@ -1,4 +1,4 @@
-package com.main.c_care;
+package com.main.c_care.geofence;
 
 import android.app.Application;
 import android.app.NotificationChannel;

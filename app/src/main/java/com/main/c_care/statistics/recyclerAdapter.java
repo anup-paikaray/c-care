@@ -1,4 +1,4 @@
-package com.main.c_care;
+package com.main.c_care.statistics;
 
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.main.c_care.R;
 
 public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.viewHolder> {
     private String[][] data;

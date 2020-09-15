@@ -1,6 +1,5 @@
-package com.main.c_care;
+package com.main.c_care.statistics;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -14,6 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.main.c_care.DatabaseHelper;
+import com.main.c_care.R;
+import com.main.c_care.geofence.Map;
 
 public class Statistics extends Fragment implements recyclerAdapter.OnClickRecyclerListener {
     private static final String TAG = "StatsFrag";

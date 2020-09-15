@@ -5,9 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".App"
+        android:name=".geofence.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,12 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SignupPage"
+            android:name=".ui.SignupPage"
             android:label="C-CARE">
         </activity>
 
         <activity
-            android:name=".OnBoard"
+            android:name=".ui.OnBoard"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginPage"
+            android:name=".ui.LoginPage"
             android:label="C-CARE" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -40,7 +41,7 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
-            android:name=".MapsActivity"
+            android:name=".geofence.MapsActivity"
             android:label="@string/title_activity_maps">
 
             <!-- <intent-filter> -->
@@ -65,11 +66,11 @@
             android:value="@string/google_maps_key" />
 
         <receiver
-            android:name=".GeofenceBroadcastReceiver"
+            android:name=".geofence.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
 
-        <service android:name=".LocationService" />
+        <service android:name=".geofence.LocationService" />
     </application>
 
 </manifest>

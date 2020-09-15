@@ -1,4 +1,4 @@
-package com.main.c_care;
+package com.main.c_care.geofence;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,6 +15,8 @@ import java.util.Random;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import com.main.c_care.R;
 
 public class NotificationHelper extends ContextWrapper {
 

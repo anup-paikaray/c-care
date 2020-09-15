@@ -1,4 +1,4 @@
-package com.main.c_care;
+package com.main.c_care.geofence;
 
 import android.Manifest;
 import android.app.Service;

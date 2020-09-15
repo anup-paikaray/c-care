@@ -1,4 +1,4 @@
-package com.main.c_care;
+package com.main.c_care.geofence;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -43,6 +43,8 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.main.c_care.DatabaseHelper;
+import com.main.c_care.R;
 
 public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
     SupportMapFragment mapFragment;

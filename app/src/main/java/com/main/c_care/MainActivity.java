@@ -13,6 +13,11 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.main.c_care.geofence.LocationService;
+import com.main.c_care.geofence.Map;
+import com.main.c_care.news.NewsFragment;
+import com.main.c_care.statistics.Statistics;
+import com.main.c_care.statistics.User;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     User user = new User();
     Map map = new Map();
     Statistics statistics = new Statistics();
+    NewsFragment news = new NewsFragment();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -82,6 +88,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.action_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, map).commit();
+                return true;
+
+            case R.id.action_news:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, news).commit();
                 return true;
         }
         return false;

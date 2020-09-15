@@ -1,4 +1,4 @@
-package com.main.c_care;
+package com.main.c_care.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.main.c_care.DatabaseHelper;
+import com.main.c_care.MainActivity;
+import com.main.c_care.R;
 
 public class SignupPage extends AppCompatActivity {
     EditText name;

@@ -1,4 +1,4 @@
-package com.main.c_care;
+package com.main.c_care.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.main.c_care.R;
 
 public class OnBoard extends AppCompatActivity {
 

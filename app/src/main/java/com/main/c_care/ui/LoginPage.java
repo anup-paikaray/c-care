@@ -1,4 +1,4 @@
-package com.main.c_care;
+package com.main.c_care.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import com.main.c_care.DatabaseHelper;
+import com.main.c_care.MainActivity;
+import com.main.c_care.R;
 
 public class LoginPage extends AppCompatActivity {
     private TextInputEditText Email;
