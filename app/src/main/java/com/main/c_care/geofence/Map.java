@@ -43,7 +43,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.main.c_care.DatabaseHelper;
+import com.main.c_care.database.LocalDatabaseHelper;
 import com.main.c_care.R;
 
 public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
@@ -69,7 +69,7 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
     private GeofencingClient geofencingClient;
     private GeofenceHelper geofenceHelper;
 
-    DatabaseHelper myDb;
+    LocalDatabaseHelper myDb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
         geofencingClient = LocationServices.getGeofencingClient(getActivity());
         geofenceHelper = new GeofenceHelper(getActivity());
 
-        myDb = new DatabaseHelper(getContext());
+        myDb = new LocalDatabaseHelper(getContext());
     }
 
     @Override

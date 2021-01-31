@@ -14,18 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.main.c_care.DatabaseHelper;
+import com.main.c_care.database.LocalDatabaseHelper;
 import com.main.c_care.R;
 import com.main.c_care.geofence.Map;
 
 public class Statistics extends Fragment implements recyclerAdapter.OnClickRecyclerListener {
     private static final String TAG = "StatsFrag";
-    DatabaseHelper myDb;
+    LocalDatabaseHelper myDb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myDb = new DatabaseHelper(getContext());
+        myDb = new LocalDatabaseHelper(getContext());
     }
 
     @Override

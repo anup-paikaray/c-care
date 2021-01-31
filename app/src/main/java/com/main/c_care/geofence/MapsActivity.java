@@ -32,7 +32,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.main.c_care.DatabaseHelper;
+import com.main.c_care.database.LocalDatabaseHelper;
 import com.main.c_care.R;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
@@ -46,7 +46,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GeofencingClient geofencingClient;
     private GeofenceHelper geofenceHelper;
 
-    DatabaseHelper myDb;
+    LocalDatabaseHelper myDb;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,7 +67,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         geofencingClient = LocationServices.getGeofencingClient(this);
         geofenceHelper = new GeofenceHelper(this);
 
-        myDb = new DatabaseHelper(this);
+        myDb = new LocalDatabaseHelper(this);
     }
 
     @Override

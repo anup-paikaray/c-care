@@ -9,12 +9,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-import com.main.c_care.DatabaseHelper;
+import com.main.c_care.database.LocalDatabaseHelper;
 
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = "GeofenceBroadcast";
-    DatabaseHelper myDb;
+    LocalDatabaseHelper myDb;
 
     private void countExits(Context context, int id) {
         int count = 0;
@@ -35,7 +35,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        myDb = new DatabaseHelper(context);
+        myDb = new LocalDatabaseHelper(context);
         NotificationHelper notificationHelper = new NotificationHelper(context);
 
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
@@ -50,6 +50,16 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         int geofenceId = Integer.parseInt(geofencingEvent.getTriggeringGeofences().get(0).getRequestId());
         Log.d(TAG, "Geofence Triggered: " + geofenceId);
 
+        if (geofenceId % 10 == 0) {
+            if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER)
+                notificationHelper.sendHighPriorityNotification("PLEASE WASH HANDS FOR 20 SECS", "Think about your family once", MapsActivity.class);
+
+            if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
+                countExits(context,geofenceId / 10);
+                notificationHelper.sendHighPriorityNotification("PLEASE WEAR MASK", "Keep yourself and everyone else safe", MapsActivity.class);
+            }
+        }
+
         if (geofenceId % 10 == 1) {
             if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER)
                 notificationHelper.sendHighPriorityNotification("HOTSPOT ALERT", "Stay away from Hotspots", MapsActivity.class);
@@ -60,16 +70,6 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
             if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
                 countExits(context,geofenceId / 10);
                 notificationHelper.sendHighPriorityNotification("YOU ARE SAFE NOW", "Thanks for getting out", MapsActivity.class);
-            }
-        }
-
-        if (geofenceId % 10 == 0) {
-            if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER)
-                notificationHelper.sendHighPriorityNotification("PLEASE WASH HANDS FOR 20 SECS", "Think about your family once", MapsActivity.class);
-
-            if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-                countExits(context,geofenceId / 10);
-                notificationHelper.sendHighPriorityNotification("PLEASE WEAR MASK", "Keep yourself and everyone else safe", MapsActivity.class);
             }
         }
 

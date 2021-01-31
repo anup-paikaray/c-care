@@ -11,9 +11,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.main.c_care.DatabaseHelper;
+import com.main.c_care.database.LocalDatabaseHelper;
 import com.main.c_care.MainActivity;
 import com.main.c_care.R;
+import com.main.c_care.database.WebDatabaseHelper;
 
 public class LoginPage extends AppCompatActivity {
     private TextInputEditText Email;
@@ -21,7 +22,8 @@ public class LoginPage extends AppCompatActivity {
     public static final String TAG = "LoginPage";
     private Button Login;
     private Button SignUp;
-    DatabaseHelper myDb;
+    LocalDatabaseHelper myDb;
+    WebDatabaseHelper myWeb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,8 @@ public class LoginPage extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate(Email.getText().toString(), Password.getText().toString());
+//                validate(Email.getText().toString(), Password.getText().toString());
+                login(myWeb.validate(Email.getText().toString(), Password.getText().toString()));
             }
         });
 
@@ -46,7 +49,8 @@ public class LoginPage extends AppCompatActivity {
                 SignUpPage();
             }
         });
-        myDb = new DatabaseHelper(this);
+//        myDb = new LocalDatabaseHelper(this);
+        myWeb = new WebDatabaseHelper();
     }
 
     private void SignUpPage() {
@@ -69,5 +73,15 @@ public class LoginPage extends AppCompatActivity {
         }
         Toast.makeText(this, "Incorrect Username or Password", Toast.LENGTH_SHORT).show();
     }
-}
 
+    private void login(String response) {
+        Toast.makeText(this, "Response: " + response, Toast.LENGTH_SHORT).show();
+
+        if (response != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+    }
+}

@@ -15,9 +15,13 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.main.c_care.geofence.LocationService;
 import com.main.c_care.geofence.Map;
+import com.main.c_care.geofence.MapGeofence;
 import com.main.c_care.news.NewsFragment;
+import com.main.c_care.assessment.Assessment;
 import com.main.c_care.statistics.Statistics;
 import com.main.c_care.statistics.User;
+import com.main.c_care.vaccine.VaccineForm;
+import com.main.c_care.vaccine.WaitingList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
@@ -69,29 +73,45 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     User user = new User();
-    Map map = new Map();
-    Statistics statistics = new Statistics();
-    NewsFragment news = new NewsFragment();
+//    Map map = new Map();
+//    Statistics statistics = new Statistics();
+//    NewsFragment news = new NewsFragment();
+//    Assessment assessment = new Assessment();
+    VaccineForm vaccineForm = new VaccineForm();
+    WaitingList waitingList = new WaitingList();
+    MapGeofence mapGeofence = new MapGeofence();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Log.d(TAG, "onNavigationItemSelected: ");
 
         switch (menuItem.getItemId())   {
-            case R.id.action_statistics:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, statistics).commit();
-                return true;
-
             case R.id.action_user:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, user).commit();
                 return true;
 
             case R.id.action_map:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, map).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, mapGeofence).commit();
                 return true;
 
-            case R.id.action_news:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, news).commit();
+//            case R.id.action_news:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.container, news).commit();
+//                return true;
+//
+//            case R.id.action_assessment:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.container, assessment).commit();
+//                return true;
+//
+//            case R.id.action_statistics:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.container, statistics).commit();
+//                return true;
+
+            case R.id.action_services:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, vaccineForm).commit();
+                return true;
+
+            case R.id.action_waiting:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, waitingList).commit();
                 return true;
         }
         return false;
