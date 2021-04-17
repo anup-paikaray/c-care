@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/main_background"
+    tools:context=".user.ModifyUser">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_margin"
+        android:layout_marginTop="@dimen/edit_margin"
+        android:layout_marginBottom="@dimen/edit_margin"
+        android:textSize="20dp"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:text="EDIT PROFILE"/>
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_margin"
+        android:layout_marginEnd="@dimen/edit_margin"
+        android:layout_marginBottom="@dimen/edit_margin"
+        android:hint="Full Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhiteA"
+        android:textSize="@dimen/text_size"
+        android:theme="@style/myEditTextStyle"/>
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_margin"
+        android:layout_marginEnd="@dimen/edit_margin"
+        android:layout_marginBottom="@dimen/edit_margin"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhiteA"
+        android:textSize="@dimen/text_size"
+        android:theme="@style/myEditTextStyle"/>
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_margin"
+        android:layout_marginEnd="@dimen/edit_margin"
+        android:layout_marginBottom="@dimen/edit_margin"
+        android:hint="Phone No."
+        android:inputType="phone"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhiteA"
+        android:textSize="@dimen/text_size"
+        android:theme="@style/myEditTextStyle"/>
+
+    <EditText
+        android:id="@+id/editTextOldPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_margin"
+        android:layout_marginEnd="@dimen/edit_margin"
+        android:layout_marginBottom="@dimen/edit_margin"
+        android:hint="Old Password"
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhiteA"
+        android:textSize="@dimen/text_size"
+        android:theme="@style/myEditTextStyle"/>
+
+    <EditText
+        android:id="@+id/editTextNewPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_margin"
+        android:layout_marginEnd="@dimen/edit_margin"
+        android:layout_marginBottom="@dimen/edit_margin"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhiteA"
+        android:textSize="@dimen/text_size"
+        android:theme="@style/myEditTextStyle"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_white"
+            android:text="Cancel"
+            android:textColor="@color/colorWhite"/>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_white"
+            android:layout_marginLeft="@dimen/btn_margin"
+            android:text="Confirm"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_marginTop="@dimen/edit_margin"
+        android:visibility="invisible"/>
+</LinearLayout>

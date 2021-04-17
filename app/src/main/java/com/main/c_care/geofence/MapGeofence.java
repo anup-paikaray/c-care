@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,7 +42,6 @@ public class MapGeofence extends Fragment implements OnMapReadyCallback {
     private GeofencingClient geofencingClient;
     private GeofenceHelper geofenceHelper;
 
-    private WebDatabaseHelper myWeb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,6 @@ public class MapGeofence extends Fragment implements OnMapReadyCallback {
 
         geofencingClient = LocationServices.getGeofencingClient(getActivity());
         geofenceHelper = new GeofenceHelper(getActivity());
-        myWeb = new WebDatabaseHelper();
     }
 
     @Override
@@ -83,6 +82,7 @@ public class MapGeofence extends Fragment implements OnMapReadyCallback {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
         } else {
             LatLng position = new LatLng(20.264, 85.8259);
+//            addMarker(position, "Home", "IVR-185");
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
         }
 
@@ -109,10 +109,11 @@ public class MapGeofence extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void addCircle(LatLng latLng, String title, String snippet) {
+    private void addMarker(LatLng latLng, String title, String snippet) {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_local_hospital_white))
+//                .icon(VectorDrawable.fromResource(R.drawable.))
                 .title(title)
                 .snippet(snippet);
         mMap.addMarker(markerOptions);

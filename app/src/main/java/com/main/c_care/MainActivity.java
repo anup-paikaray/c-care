@@ -11,21 +11,40 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.main.c_care.geofence.LocationService;
-import com.main.c_care.geofence.Map;
 import com.main.c_care.geofence.MapGeofence;
-import com.main.c_care.news.NewsFragment;
-import com.main.c_care.assessment.Assessment;
-import com.main.c_care.statistics.Statistics;
-import com.main.c_care.statistics.User;
+import com.main.c_care.user.User;
 import com.main.c_care.vaccine.VaccineForm;
 import com.main.c_care.vaccine.WaitingList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
     public static final String TAG = "MainActivity";
+    public UserData userData;
+
+    public class UserData {
+        public String name, email, phone, pid;
+
+        public UserData() {
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+                name = bundle.getString("USERNAME");
+                email = bundle.getString("EMAIL");
+                phone = bundle.getString("PHONE");
+                pid = bundle.getString("PID");
+            }
+        }
+
+        public UserData(String Name, String Email, String Phone, String Pid) {
+            name = Name;
+            email = Email;
+            phone = Phone;
+            pid = Pid;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setSelectedItemId(R.id.action_map);
 
         runtime_permissions();
+        userData = new UserData();
     }
 
     public void startService() {

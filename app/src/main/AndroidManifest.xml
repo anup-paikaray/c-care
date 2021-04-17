@@ -15,23 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".OkHttp"
-            android:label="@string/title_activity_ok_http"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".user.ModifyUser"></activity>
         <activity
             android:name=".ui.SignupPage"
-            android:label="C-CARE"></activity>
+            android:label="C-CARE" />
         <activity
             android:name=".ui.OnBoard"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -48,16 +41,15 @@
         -->
         <activity
             android:name=".geofence.MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
+            android:label="@string/title_activity_maps"></activity>
         <activity
             android:name=".MainActivity"
-            android:label="C-CARE">
-        </activity>
+            android:label="C-CARE"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <receiver
             android:name=".geofence.GeofenceBroadcastReceiver"
             android:enabled="true"
